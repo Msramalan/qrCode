@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<style>
+  @media print {
+      
+      .form-control{
+          border: none !important;
+      }
+    .title{
+      display: none;
+    }
+    .WT{
+      position: absolute;
+      left: 140px;
+      margin-top: -2px;
+    }
+    .WT-Input{
+      position: absolute;
+      left:170px;
+      top:80px;
+    }
+    .Product-Name{
+      position: absolute;
+      top: 50px;
+      left: 170px;
+      
+    }
+    #imgBox{
+      position: absolute;
+      top: 130px;
+      left: 170px;
+      width: 50px;
+      height: 50px;
+    }
+    #qrImage{
+      position: absolute;
+      width: 50px;
+      height: 50px;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="containerr" style="margin-top: 50px;">
+    <p class="title"> Company-Name or URL :</p>
+    <input class="form-control" style="text-align: center;" type="text" placeholder="Company-Name or URL" id="qrText" value="🦜RGJ" readonly>
+    <p class="title"> Product-Name : </p>
+    <input class="form-control Product-Name" type="text" placeholder="Product-Name" id="qrText1">
+    <p class="WT"> WT : </p>
+    <input class="form-control WT-Input" type="text" placeholder="Product-Weight" id="qrText2">
+    <div id="imgBox">
+        <img src="" id="qrImage">
+    </div>
+    <button class="hidden-print" onclick="generateQR()">Generate QR Code</button>
+    <button type="text" class="btn btn-danger  hidden-print" style="width: 100%; border-radius: 10px; outline: none;" onclick="printqr()">Print Invoice</button>
+  </div>
+  <script>
+    let imgBox = document.getElementById("imgBox");
+    let qrImage = document.getElementById("qrImage");
+    let qrText = document.getElementById("qrText");
+    let qrText1 = document.getElementById("qrText1");
+    let qrText2 = document.getElementById("qrText2");
+
+
+    function generateQR(){
+        if(10 > 0){
+       
+        qrImage1= `Company-Name :${qrText.value}`;
+        qrImage2 =qrImage1 +`----Product-Name :${qrText1.value}`;
+        qrImage3 = qrImage2 +`----WT :${qrText2.value}`;
+
+        qrImage.src ="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="+ qrImage3;
+
+        imgBox.classList.add("show-img");
+        }else{
+            qrText.classList.add('error');
+            setTimeout(()=>{
+            qrText.classList.remove('error');
+            },1000);
+        }
+      
+    }
+    function printqr(){
+            window.print();
+        }
+  </script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.min.js"></script>
+
+</body> 
+</html>
